@@ -2,6 +2,9 @@ html, body
 {
     height: 100%;
     margin: 0;
+    overflow-y: hidden;
+    justify-content: center;   
+    align-items: center;  
 }
 
 body
@@ -17,4 +20,46 @@ h1
     text-align: center;
     margin-top: 10px;
     padding: 10px;
+    font-size: 40px;
+}
+
+.container 
+{
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 50px 70px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in-out;
+    height:640px;
+    width:800px;
+    justify-content: center;
+}
+
+
+.logo 
+{
+    width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.api-link 
+{
+    display: inline-block;
+    margin-top: 15px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.25s ease;
+}
+
+.api-link:hover 
+{
+    background: linear-gradient(to bottom, rgba(0,240,255,0.15), rgba(255,0,122,0.15));
+    color: black;
+    
 }
