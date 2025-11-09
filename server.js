@@ -133,10 +133,8 @@ let popularItems = [
 ]
 
 app.get("/api/popularItems", (req, res) => {
-    /**
-     * Chat helped with json formatting in browser
-     */
-    res.send(`<pre>${JSON.stringify(popularItems, null, 2)}</pre>`); 
+    res.setHeader("Content-Type", "application/json"); 
+    res.send(JSON.stringify(popularItems));
 });
 
 app.get("/api/popularItems/:id", (req, res) => {
