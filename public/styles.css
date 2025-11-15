@@ -32,7 +32,7 @@ h1
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     animation: fadeIn 0.6s ease-in-out;
-    height:640px;
+    height:600px;
     width:800px;
     justify-content: center;
 }

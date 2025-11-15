@@ -2,12 +2,19 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const app = express();
+const Joi = require("joi");
 
 
 app.use(cors({ origin: "*" }));
 app.use(express.static("public"));
 app.use(express.json());
 app.set('json spaces', 2);
+
+const contactSchema = Joi.object({
+  name: Joi.string().min(2).max(50).required(),
+  email: Joi.string().email().required(),
+  message: Joi.string().min(10).max(500).required(),
+});
 
 
 const storage = multer.diskStorage({
@@ -140,6 +147,25 @@ app.get("/api/popularItems", (req, res) => {
 app.get("/api/popularItems/:id", (req, res) => {
     const popularItem = popularItems.find(item => item._id === parseInt(req.params.id));
     res.json(popularItem);
+});
+
+app.post("/api/contact", (req, res) => {
+  const { error, value } = contactSchema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ 
+      success: false, 
+      error: error.details[0].message 
+    });
+  }
+
+  console.log("New contact form submission:", value);
+
+  res.json({ 
+    success: true, 
+    message: "Message received successfully!",
+    data: value 
+  });
 });
 
 app.listen(3001, () => {
