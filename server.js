@@ -139,6 +139,10 @@ let popularItems = [
     }
 ]
 
+let contactSubmissions = [
+
+]; 
+
 app.get("/api/popularItems", (req, res) => {
     res.setHeader("Content-Type", "application/json"); 
     res.send(JSON.stringify(popularItems));
@@ -159,8 +163,7 @@ app.post("/api/contact", (req, res) => {
     });
   }
 
-  console.log("New contact form submission:", value);
-
+  contactSubmissions.push(value);
   res.json({ 
     success: true, 
     message: "Message received successfully!",
