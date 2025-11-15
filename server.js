@@ -171,6 +171,10 @@ app.post("/api/contact", (req, res) => {
   });
 });
 
+app.get("/api/contact", (req, res) => {
+  res.json(contactSubmissions);
+});
+
 app.listen(3001, () => {
     console.log("Server is up and running");
 });
