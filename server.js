@@ -175,6 +175,58 @@ app.get("/api/contact", (req, res) => {
   res.json(contactSubmissions);
 });
 
+//feedback board edit/delete
+const feedbackSchema = Joi.object({
+  name: Joi.string().min(2).max(50).required(),
+  feedback: Joi.string().min(10).max(300).required(),
+});
+
+let feedbackSubmissions = [];
+let nextId = 1;
+
+// Add  feedback
+app.post("/api/feedback", (req, res) => {
+  const { error, value } = feedbackSchema.validate(req.body);
+  if (error)
+    return res.status(400).json({ success: false, error: error.details[0].message });
+
+  const newFeedback = { id: nextId++, ...value };
+  feedbackSubmissions.push(newFeedback);
+  res.status(201).json({ success: true, message: "Feedback added!", data: newFeedback });
+});
+
+// Get feedback
+app.get("/api/feedback", (req, res) => {
+  res.json(feedbackSubmissions);
+});
+
+// Edit feedback
+app.put("/api/feedback/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = feedbackSubmissions.findIndex((f) => f.id === id);
+  if (index === -1)
+    return res.status(404).json({ success: false, message: "Feedback not found." });
+
+  const { error, value } = feedbackSchema.validate(req.body);
+  if (error)
+    return res.status(400).json({ success: false, error: error.details[0].message });
+
+  feedbackSubmissions[index] = { id, ...value };
+  res.status(200).json({ success: true, message: "Feedback updated!", data: feedbackSubmissions[index] });
+});
+
+// Delete feedback
+app.delete("/api/feedback/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = feedbackSubmissions.findIndex((f) => f.id === id);
+  if (index === -1)
+    return res.status(404).json({ success: false, message: "Feedback not found." });
+
+  feedbackSubmissions.splice(index, 1);
+  res.status(200).json({ success: true, message: "Feedback deleted!" });
+});
+
+
 app.listen(3001, () => {
     console.log("Server is up and running");
 });
