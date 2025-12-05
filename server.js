@@ -11,7 +11,7 @@ app.use(express.json());
 app.set("json spaces", 2);
 
 //mongo connect
-mongoose.connect(process.env.MONGO_URL || "mongodb://localhost:27017/pixelport")
+mongoose.connect("mongodb+srv://talankinard:Koolaid0820@pixelport.yo9qhg0.mongodb.net/?appName=PixelPort")
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.error("MongoDB Error:", err));
 
