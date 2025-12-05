@@ -176,8 +176,96 @@ app.delete("/api/feedback/:id", (req, res) => {
   res.status(200).json({ success: true, message: "Feedback has been deleted." });
 });
 
+async function seedDB() {
+  const count = await PopularItem.countDocuments();
+  if (count > 0) {
+    console.log("Database already has items, skipping seed.");
+    return;
+  }
+
+  await PopularItem.insertMany([
+    {
+      name: "HellDivers 2",
+      img: "helldivers2.png",
+      price: "$49.99",
+      description: "A third-person shooter...",
+      rating: "4.2",
+      reviews: ["Very fun game!", "Super hard!", "Too hard for all audiences"]
+    },
+    {
+      name: "Marvel Rivals",
+      img: "marvelrivals.png",
+      price: "$0.00",
+      description: "A free-to-play hero shooter...",
+      rating: "4.5",
+      reviews: ["Awesome implementation!", "Great multiplayer game!"]
+    },
+    {
+      name: "Steel Series Gaming Headset",
+      img: "headset.webp",
+      price: "$129.99",
+      description: "Comfortable design...",
+      rating: "3.9",
+      reviews: ["Comfortable headset", "Breaks easily.", "Worth the price."]
+    },
+    {
+      name: "NVIDIA RTX-4090 GPU",
+      img: "gpu.png",
+      price: "$1599.99",
+      description: "A high-end NVIDIA GPU...",
+      rating: "4.5",
+      reviews: ["Insanely good!", "Super pricey but great!"]
+    },
+    {
+      name: "Oculus Quest",
+      img: "oculus.png",
+      price: "$399.99",
+      description: "A VR device worn over the eyes...",
+      rating: "3.7",
+      reviews: ["Super cool!", "Headaches...", "Fun but not for hours."]
+    },
+    {
+      name: "Nintendo Switch 2",
+      img: "switch2.png",
+      price: "$499.99",
+      description: "Hybrid successor to the Switch.",
+      rating: "4.7",
+      reviews: ["So much fun!", "Pricy but worth it!"]
+    },
+    {
+      name: "Hollow Knight Silksong",
+      img: "hallowknightsilk.webp",
+      price: "$19.99",
+      description: "Action-adventure Metroidvania...",
+      rating: "4.9",
+      reviews: ["GOTY!"]
+    },
+    {
+      name: "Expedition 33",
+      img: "clairobscurexp33.webp",
+      price: "$49.99",
+      description: "A 2025 turn-based RPG...",
+      rating: "4.9",
+      reviews: ["Best story ever!", "Insane twists!"]
+    },
+    {
+      name: "Elgato Stream Deck",
+      img: "streamdeck.png",
+      price: "$119.99",
+      description: "Programmable desktop controller...",
+      rating: "4.0",
+      reviews: ["Helpful but buggy sometimes."]
+    }
+  ]);
+
+  console.log("Database seeded!");
+}
+
+seedDB();
 
 //server start
 app.listen(3001, () => {
   console.log("Server is up and running");
 });
+
+
